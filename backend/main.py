@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from datetime import datetime, date, time
 from pydantic import BaseModel, field_validator
 import re
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
@@ -23,6 +24,24 @@ PARAMETROS_CONEXAO = {
 def conexao():
     return psycopg2.connect(**PARAMETROS_CONEXAO)
 
+#------------------ CONFIGURAR CORS FASTAPI ------------------
+origins = [
+   "http://localhost:5173",
+   "http://localhost:5174",
+   "http://127.0.0.1:5173",
+   "http://127.0.0.1:5174",
+]
+
+# Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,           # Lista de sites permitidos
+    allow_credentials=True,          # Permite o envio de cookies/autenticação
+    allow_methods=["*"],             # Permite todos os verbos (GET, POST, etc.)
+    allow_headers=["*"],             # Permite todos os headers (Content-Type, etc.)
+)
+
+#------------------ ENDPOINTS ------------------
 @app.get("/especialidades")
 def get_especialidades():
     try:
@@ -30,7 +49,7 @@ def get_especialidades():
       cursor = conn.cursor(cursor_factory=RealDictCursor)
       
       cursor.execute(
-          "SELECT * FROM especialidades"
+          "SELECT * FROM especialidades ORDER BY especialidade ASC"
           )
 
       especialidades = cursor.fetchall()
@@ -47,7 +66,7 @@ def get_profissionais_por_especialidade(especialidade_id: int):
       conn = conexao()
       cursor = conn.cursor(cursor_factory=RealDictCursor)
       cursor.execute(
-         "SELECT * FROM profissionais WHERE especialidade_id = %s", (especialidade_id,)
+         "SELECT * FROM profissionais WHERE especialidade_id = %s ORDER BY nome ASC", (especialidade_id,)
       )
       profs_por_especialidade = cursor.fetchall()
       cursor.close()
@@ -59,18 +78,21 @@ def get_profissionais_por_especialidade(especialidade_id: int):
 
 @app.get("/disponibilidade/{profissional_id}/{data}")
 def get_horarios_disponiveis_por_profissional(profissional_id, data):
-   data_nomr = datetime.strptime(data, "%d-%m-%Y")
+   data_nomr = datetime.strptime(data, "%Y-%m-%d")
    dia = data_nomr.strftime('%A').lower()
    try:
     conn = conexao()
     cursor = conn.cursor(cursor_factory=RealDictCursor)
     cursor.execute(
-       "SELECT horario FROM disponibilidade WHERE profissional_id = %s AND dia_semana = %s", (profissional_id, dia)
+       "SELECT horario FROM disponibilidade WHERE profissional_id = %s AND dia_semana = %s AND horario " \
+       "NOT IN (SELECT horario FROM agendamentos WHERE profissional_id = %s AND data_ = %s)",
+       (profissional_id, dia, profissional_id, data_nomr)
     )
     horarios_profissional = cursor.fetchall()
+    horarios_formatados = [{"horario": str(h["horario"])[:5]} for h in horarios_profissional]
     cursor.close()
     conn.close()
-    return horarios_profissional
+    return horarios_formatados
 
    except Exception as e:
       return {"erro": str(e)}
@@ -81,12 +103,18 @@ def get_agendamentos_por_cpf(cpf):
       conn = conexao()
       cursor = conn.cursor(cursor_factory=RealDictCursor)
       cursor.execute(
-         "SELECT * FROM agendamentos WHERE cpf = %s", (cpf,)
+         "SELECT agendamentos.id, paciente, cpf, data_, horario, profissional_id, nome, especialidade_id, especialidades.especialidade" \
+         " FROM agendamentos" \
+         " JOIN profissionais ON agendamentos.profissional_id = profissionais.id" \
+         " JOIN especialidades ON profissionais.especialidade_id = especialidades.id" \
+         " WHERE cpf = %s" \
+         " ORDER BY data_ DESC, horario ASC", (cpf,)
       )
       agend_cpf = cursor.fetchall()
+      agend_cpf_formatado = [{**h, "horario": str(h["horario"])[:5]} for h in agend_cpf]
       cursor.close()
       conn.close()
-      return agend_cpf
+      return agend_cpf_formatado
    
    except Exception as e:
       return {"erro": str(e)}
@@ -144,3 +172,10 @@ def delete_agendamentos(id):
 
    except Exception as e:
       return {"erro": str(e)}
+   
+
+
+
+#cd backend
+#venv\Scripts\activate
+#fastapi dev main.py
