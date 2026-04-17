@@ -35,10 +35,10 @@ origins = [
 # Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,           # Lista de sites permitidos
-    allow_credentials=True,          # Permite o envio de cookies/autenticação
-    allow_methods=["*"],             # Permite todos os verbos (GET, POST, etc.)
-    allow_headers=["*"],             # Permite todos os headers (Content-Type, etc.)
+    allow_origins=origins,           
+    allow_credentials=True,          
+    allow_methods=["*"],             
+    allow_headers=["*"],             
 )
 
 #------------------ ENDPOINTS ------------------
@@ -173,9 +173,3 @@ def delete_agendamentos(id):
    except Exception as e:
       return {"erro": str(e)}
    
-
-
-
-#cd backend
-#venv\Scripts\activate
-#fastapi dev main.py
