@@ -9,7 +9,7 @@ import { AppointmentLookup } from "./components/scheduling/AppointmentLookup";
 import { criarAgendamento } from "./api";
 import { toast } from "sonner";
 import { Toaster } from "sonner";
-import { CalendarPlus, ClipboardList, Stethoscope, ArrowLeft, ArrowRight } from "lucide-react";
+import { CalendarPlus, ClipboardList, Cross, ArrowLeft, ArrowRight } from "lucide-react";
 import { format } from "date-fns";
 
 const STEPS = ["Especialidade", "Data e Horário", "Confirmação"];
@@ -67,11 +67,11 @@ function App() {
       <header className="border-b bg-card shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-            <Stethoscope className="w-5 h-5 text-primary-foreground" />
+            <Cross className="w-5 h-5 text-primary-foreground" />
           </div>
           <div>
             <h1 className="text-lg font-bold text-foreground">MedHub</h1>
-            <p className="text-xs text-muted-foreground">Sistema de Agendamento</p>
+            <p className="text-xs text-muted-foreground">Agendamento de Consultas</p>
           </div>
         </div>
       </header>

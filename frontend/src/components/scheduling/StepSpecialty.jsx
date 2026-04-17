@@ -1,8 +1,18 @@
 import { useState, useEffect } from "react";
 import { getEspecialidades, getProfissionais } from "../../api";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Heart, Scan } from "lucide-react";
+import { Stethoscope, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Heart, Route, Baby, Bone, Eye, Brain } from "lucide-react";
+
+const iconMap = {
+  "Cardiologia": <Heart className="w-5 h-5" />,
+  "Gastrologia": <Route className="w-5 h-5" />,
+  "Pediatria": <Baby className="w-5 h-5" />,
+  "Ortopedia": <Bone className="w-5 h-5" />,
+  "Oftalmologia": <Eye className="w-5 h-5" />,
+  "Neurologia": <Brain className="w-5 h-5" />,
+};
 
 export function StepSpecialty({
   selectedSpecialty,
@@ -43,7 +53,7 @@ export function StepSpecialty({
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-base font-semibold flex items-center gap-2">
-            <Heart className="w-5 h-5 text-primary" />
+            <Stethoscope className="w-5 h-5 text-primary" />
             Especialidade
           </CardTitle>
         </CardHeader>
@@ -62,7 +72,10 @@ export function StepSpecialty({
             <SelectContent>
               {especialidades.map((s) => (
                 <SelectItem key={s.id} value={String(s.id)}>
-                  {s.especialidade}
+                  <span className="flex items-center gap-2">
+                    {iconMap[s.especialidade]}
+                    {s.especialidade}
+                  </span>
                 </SelectItem>
               ))}
             </SelectContent>
@@ -74,7 +87,7 @@ export function StepSpecialty({
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base font-semibold flex items-center gap-2">
-              <Scan className="w-5 h-5 text-primary" />
+              <User className="w-5 h-5 text-primary" />
               Profissional
             </CardTitle>
           </CardHeader>

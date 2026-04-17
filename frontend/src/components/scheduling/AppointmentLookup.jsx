@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { getAgendamentosPorCpf, cancelarAgendamento } from "../../api";
 import { toast } from "sonner";
-import { Search, CalendarDays, Clock, Stethoscope, User, Trash2, FileX } from "lucide-react";
+import { Search, CalendarDays, Clock, Stethoscope, CircleUser, User, Trash2, FileX } from "lucide-react";
 import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
@@ -79,7 +79,7 @@ export function AppointmentLookup() {
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-2 text-sm flex-1">
                   <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-primary" />
+                    <CircleUser className="w-4 h-4 text-primary" />
                     <span>{apt.paciente}</span>
                   </div>
                   <div className="flex items-center gap-2">

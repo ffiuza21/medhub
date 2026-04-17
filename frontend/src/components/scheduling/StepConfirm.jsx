@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { User, FileText, CalendarDays, Clock, Stethoscope } from "lucide-react";
+import { CircleUser, User, FileText, CalendarDays, Clock, Stethoscope } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
@@ -23,7 +23,7 @@ export function StepConfirm({
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-base font-semibold flex items-center gap-2">
-            <User className="w-5 h-5 text-primary" />
+            <CircleUser className="w-5 h-5 text-primary" />
             Dados do Paciente
           </CardTitle>
         </CardHeader>
