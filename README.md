@@ -8,10 +8,12 @@ Sistema web para agendamento de consultas médicas, desenvolvido como projeto ac
 - **Banco de dados**: PostgreSQL 18
 - **Frontend**: React + Vite + shadcn/ui
 
-## Acesso online
+## Deploy
 
-- Frontend: https://medhub-xi.vercel.app
-- Backend: https://medhub-backend-nlkg.onrender.com/docs
+- Frontend: https://medhub-xi.vercel.app (Vercel)
+- Backend: https://medhub-backend-nlkg.onrender.com (Render)
+
+> **Aviso**: O banco de dados gratuito do Render expira em 21/05/2026 e será deletado automaticamente.
 
 ## Como rodar localmente
 
