@@ -25,13 +25,7 @@ def conexao():
     return psycopg2.connect(**PARAMETROS_CONEXAO)
 
 #------------------ CONFIGURAR CORS FASTAPI ------------------
-origins = [
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://127.0.0.1:5173",
-    "http://127.0.0.1:5174",
-    "https://medhub-gkks23mvr-ffiuzas-projects.vercel.app",
-]
+origins = ["*"]
 
 # Middleware
 app.add_middleware(
