@@ -4,7 +4,7 @@ INSERT INTO especialidades (especialidade) VALUES
     ('Pediatria'),
     ('Ortopedia'),
     ('Oftalmologia'),
-    ('Neurologia')
+    ('Neurologia');
 
 INSERT INTO profissionais (crm, nome, especialidade_id) VALUES
     ('CRM-89012', 'Dra. Adênia Dehaip', (SELECT id FROM especialidades WHERE especialidade='Cardiologia')),
@@ -22,7 +22,7 @@ INSERT INTO profissionais (crm, nome, especialidade_id) VALUES
     ('CRM-90123', 'Dr. Helio Ferreira', (SELECT id FROM especialidades WHERE especialidade='Oftalmologia')),
     ('CRM-22334', 'Dr. Elias Jesus', (SELECT id FROM especialidades WHERE especialidade='Oftalmologia')),
     ('CRM-44556', 'Dra. Talita Meiyer', (SELECT id FROM especialidades WHERE especialidade='Neurologia')),
-    ('CRM-78901', 'Dra. Catarina Brasil', (SELECT id FROM especialidades WHERE especialidade='Neurologia'))
+    ('CRM-78901', 'Dra. Catarina Brasil', (SELECT id FROM especialidades WHERE especialidade='Neurologia'));
 
 INSERT INTO disponibilidade (profissional_id, dia_semana, horario) VALUES
 ((SELECT id FROM profissionais WHERE crm='CRM-89012'), 'monday', '08:00'),
