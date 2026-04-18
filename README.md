@@ -11,9 +11,10 @@ Sistema web para agendamento de consultas médicas, desenvolvido como projeto ac
 ## Deploy
 
 - Frontend: https://medhub-xi.vercel.app (Vercel)
-- Backend: https://medhub-backend-nlkg.onrender.com (Render)
+- Backend: https://medhub-backend-nlkg.onrender.com/docs (Render) - Swagger
 
 > **Aviso**: O banco de dados gratuito do Render expira em 21/05/2026 e será deletado automaticamente.
+> **Aviso**: O backend hospedado em plano gratuito do Render, hibernação após 15 minutos sem uso. Após esse período, demora de **30 a 60 segundos** até o sistema responder.
 
 ## Como rodar localmente
 
