@@ -35,11 +35,11 @@ pip install -r requirements.txt
 ```
 
 Crie um arquivo `.env` dentro da pasta `backend` com as seguintes variáveis:
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=medhub
-DB_USER=postgres
-DB_PASSWORD=sua_senha
+- DB_HOST=localhost
+- DB_PORT=5432
+- DB_NAME=medhub
+- DB_USER=postgres
+- DB_PASSWORD=sua_senha
 
 Crie o banco de dados e as tabelas:
 
